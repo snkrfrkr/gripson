@@ -1,0 +1,11 @@
+            {% for row in idt %}
+            <h3>{{ row[i] }}</h3>
+            {% endfor %}
+
+            {% for row in text %}
+            <h3>{{ row[i] }}</h3>
+            {% endfor %}
+
+            {% for row in desc %}
+            <h3>{{ row[i] }}</h3>
+            {% endfor %}
