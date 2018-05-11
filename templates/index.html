@@ -29,37 +29,6 @@
             margin: auto;
         }
 
-        /* Next & previous buttons */
-
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-        }
-
-        /* Position the "next button" to the right */
-
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        /* On hover, add a black background color with a little bit see-through */
-
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
         /* Caption text */
 
         .text {
@@ -80,24 +49,6 @@
             padding: 8px 12px;
             position: absolute;
             top: 0;
-        }
-
-        /* The dots/bullets/indicators */
-
-        .dot {
-            cursor: pointer;
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active,
-        .dot:hover {
-            background-color: #717171;
         }
 
         /* Fading animation */
@@ -144,21 +95,24 @@
         <img src="{{ url_for('static', filename="grips_on_logo.png") }}" /> 
         
         {% for i in range(db_len) %}
+            {% for k in data %}
 
         <div class="mySlides fade">
 
-            <h1>{{ i + 1 }} / {{ db_len }}</h1>
-
-            {{ text[i] }}
-            {{ desc[i] }}
+            <h1>Grips-ID = {{ k['id'] }}</h1>
+            <h2>Verbesserug</h2>
+            <p>{{ k['text'] }}</p>
+            <h2>Beschreibung</h2>
+            <p>{{ k['description'] }}</p>
+            <h2>Wie war es vorher?</h2>
+            <p>{{ k['before'] }}</p>
+            <h2>Wie ist es nachher</h2>
+            <p>{{ k['after'] }}</p>
 
       
         </div> 
-
+            {% endfor %}
         {% endfor %}
-
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
     </div>
     <br>
@@ -182,7 +136,7 @@
             slideIndex++;
             if (slideIndex > slides.length) { slideIndex = 1 }
             slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 2000); // Change image every 2 seconds
+            setTimeout(showSlides, 5000); // Change image every 2 seconds
         } 
     </script>
 
