@@ -3,10 +3,13 @@ from flask_bootstrap import Bootstrap
 import time, bcrypt
 from flaskext.mysql import MySQL
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import StringField
 
 #mysql = MySQL()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://service:schubert@localhost:3306/gripson_db"
+app.config["SECRET_KEY"] = "GRIPSWORLD"
 db = SQLAlchemy(app)
 
 class gripson_t(db.Model):
@@ -16,29 +19,35 @@ class gripson_t(db.Model):
     before = db.Column(db.String(4096))
     after = db.Column(db.String(4096))
 
-def __init__ (self, text, description, before, after):
-    self.text = text
-    self.description = description
-    self.before = before
-    self.after = after
+    def __init__ (self, text, description, before, after):
+        self.text = text
+        self.description = description
+        self.before = before
+        self.after = after
 
-a = gripson_t.query.all()
-for i in a:
-    print(i)
+class GripsInput(FlaskForm):
+    text = StringField('text')
+    description = StringField('description')
+    before = StringField('before')
+    after = StringField('after')
+
+db_in = gripson_t.query.all()
+db_len = len(db_in)
+print(db_len)
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
     if request.method == 'GET':
         try:
-            return render_template("index.html", data=gripson_t.query.all(), db_len=5 )
+            return render_template("index.html", data=gripson_t.query.all(), db_len=db_len )
         except:
             print("NOK")
         
 
-@app.route("/login", methods = ['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-            return render_template("login.html", data=gripson_t.query.all() )
+@app.route("/form", methods = ['GET', 'POST'])
+def form():
+    form = GripsInput()
+    return render_template("form.html", form=form )
 
 if __name__ == '__main__':
     app.run()
