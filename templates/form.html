@@ -3,15 +3,22 @@
         <title>GRIPS.on</title>
     </head>
     <body>
-        <h1>This a Site</h1>
-        {{ form.csrf_token }}
-        {{ form.text.label }}
-        {{ form.text }}
-        {{ form.description.label }}
-        {{ form.description }}
-        {{ form.before.label }}
-        {{ form.before }}
-        {{ form.after.label }}
-        {{ form.after }}
+        <h1>GRIPS!on</h1>
+        <div>
+            <div>
+                <form method="POST" action="{{ url_for('form') }}">
+                    {{ form.csrf_token }}
+                    {{ form.text.label }}
+                    {{ form.text }}
+                    {{ form.description.label }}
+                    {{ form.description }}
+                    {{ form.before.label }}
+                    {{ form.before }}
+                    {{ form.after.label }}
+                    {{ form.after }}                
+            </div>
+                <input type="submit" value="Submit">
+                </form>
+        </div>      
     </body>
 </html>

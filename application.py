@@ -47,6 +47,17 @@ def index():
 @app.route("/form", methods = ['GET', 'POST'])
 def form():
     form = GripsInput()
+    if form.validate_on_submit():
+        g_text = form.text.data
+        g_description = form.description.data
+        g_before = form.before.data
+        g_after = form.after.data
+        db_write = gripson_t(g_text, g_description, g_before, g_after)
+        db.session.add(db_write)
+        db.session.commit()
+        return "OK"
+        time.sleep(1)
+        return render_template("form.html", form=form )
     return render_template("form.html", form=form )
 
 if __name__ == '__main__':
