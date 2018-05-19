@@ -1,24 +1,38 @@
+{% extends "bootstrap/base.html" %}
 <html>
     <head>
         <title>GRIPS.on</title>
     </head>
     <body>
+        {% block content %}
         <h1>GRIPS!on</h1>
-        <div>
-            <div>
-                <form method="POST" action="{{ url_for('form') }}">
+        <div class="row">
+            <div class="col-sm-1">
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('form') }}">
+
                     {{ form.csrf_token }}
                     {{ form.text.label }}
-                    {{ form.text }}
+                    {{ form.text (size="10")}}
                     {{ form.description.label }}
                     {{ form.description }}
                     {{ form.before.label }}
                     {{ form.before }}
                     {{ form.after.label }}
-                    {{ form.after }}                
+                    {{ form.after }} 
+                    {{ form.image.label }}
+                    {{ form.image }}
+                    <select name=name method="GET" action="/">
+                        {% for name in names %}
+                        <option value= "{{name}}" SELECTED>{{ name }}</option>
+                         {% endfor %}
+                    </select>            
             </div>
-                <input type="submit" value="Submit">
+            <div class="col-sm-12" align="center">
+                <input type="submit" class="btn btn-primary" value="Eintragen">
                 </form>
-        </div>      
+            </div>
+               
+        </div>  
+        {% endblock %}    
     </body>
 </html>

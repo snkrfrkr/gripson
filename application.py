@@ -5,12 +5,19 @@ from flaskext.mysql import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField
+from wtforms.validators import DataRequired
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
+import os
 
 #mysql = MySQL()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://service:schubert@localhost:3306/gripson_db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SECRET_KEY"] = "GRIPSWORLD"
 db = SQLAlchemy(app)
+
+Bootstrap(app)
 
 class gripson_t(db.Model):
     id = db.Column('id', db.Integer, primary_key = True)
@@ -26,14 +33,15 @@ class gripson_t(db.Model):
         self.after = after
 
 class GripsInput(FlaskForm):
-    text = StringField('text')
+    text = StringField('text', validators=[DataRequired()])
     description = StringField('description')
     before = StringField('before')
     after = StringField('after')
+    image = FileField(validators=[FileRequired()])
 
 db_in = gripson_t.query.all()
 db_len = len(db_in)
-print(db_len)
+print(str(db_len) + " Einträge in der Datenbank")
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
@@ -47,18 +55,24 @@ def index():
 @app.route("/form", methods = ['GET', 'POST'])
 def form():
     form = GripsInput()
+    names = ["Entry1", "Entry2", "Entry3"]
     if form.validate_on_submit():
+        f = form.image.data
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(
+            app.instance_path, 'photos', filename
+        ))
         g_text = form.text.data
         g_description = form.description.data
         g_before = form.before.data
         g_after = form.after.data
+        g_image = form.image.data
+        print(f.value)
         db_write = gripson_t(g_text, g_description, g_before, g_after)
         db.session.add(db_write)
         db.session.commit()
-        return "OK"
-        time.sleep(1)
-        return render_template("form.html", form=form )
-    return render_template("form.html", form=form )
+        return render_template("ok.html" )
+    return render_template("form.html", form=form, names=names )
 
 if __name__ == '__main__':
     app.run()
