@@ -7,20 +7,47 @@
         {% block content %}
         <h1>GRIPS!on</h1>
         <div class="row">
-            <div class="col-sm-1">
+            <div class="col-sm-12">
                 <form method="POST" enctype="multipart/form-data" action="{{ url_for('form') }}">
 
                     {{ form.csrf_token }}
-                    {{ form.text.label }}
-                    {{ form.text (size="10")}}
-                    {{ form.description.label }}
-                    {{ form.description }}
-                    {{ form.before.label }}
-                    {{ form.before }}
-                    {{ form.after.label }}
-                    {{ form.after }} 
-                    {{ form.image.label }}
-                    {{ form.image }}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h2>{{ form.text.label }}</h2>
+                            {{ form.text (size="150")}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ form.description.label }}
+                            {{ form.description (size="150") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ form.before.label }}
+                            {{ form.before (size="150") }}
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ form.after.label }}
+                            {{ form.after (size="150") }} 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ form.image.label }}
+                            {{ form.image }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ form.check.label }}
+                            {{ form.check }}
+                        </div>
+                    </div>
+
                     <select name=name method="GET" action="/">
                         {% for name in names %}
                         <option value= "{{name}}" SELECTED>{{ name }}</option>
