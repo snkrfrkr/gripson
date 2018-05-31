@@ -1,6 +1,7 @@
+{% from "_GripsEntryHelper.html" import render_field %}
 {% extends "bootstrap/base.html" %}
 <html>
-    <head>
+    <head style="background-color: lightblue;">
         <title>GRIPS.on</title>
     </head>
     <body>
@@ -10,55 +11,48 @@
             <div class="col-sm-12">
                 <form method="POST" enctype="multipart/form-data" action="{{ url_for('form') }}">
 
-                    {{ form.csrf_token }}
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h2>{{ form.text.label }}</h2>
-                            {{ form.text (size="150")}}
-                        </div>
+                {{ form.csrf_token }}
+                <div class="row">
+                    <div class="col-sm-1" align="center">
+                        <h1>Verbesserung</h1>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            {{ form.description.label }}
-                            {{ form.description (size="150") }}
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>Überschrift</h3>
+                        {{ render_field(form.go_improvement) }}
+                        <h3>Abteilung</h3>
+                        {{ render_field(form.go_dept_1) }}
+                        {{ render_field(form.go_dept_2) }}
+                        {{ render_field(form.go_dept_3) }}
+                        {{ render_field(form.go_dept_4) }}
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            {{ form.before.label }}
-                            {{ form.before (size="150") }}
-                        </div>    
+                    <div class="col-sm-6">
+                        <h3>Warum war die Verbesserung notwendig?</h3>
+                        {{ render_field(form.go_why_1) }}
+                        {{ render_field(form.go_why_2) }}
+                        {{ render_field(form.go_why_3) }}
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            {{ form.after.label }}
-                            {{ form.after (size="150") }} 
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>Welche Veränderung gab es?</h3>
+                        {{ render_field(form.go_what_1) }}
+                        {{ render_field(form.go_what_2) }}
+                        {{ render_field(form.go_what_3) }}
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            {{ form.image.label }}
-                            {{ form.image }}
-                        </div>
+                    <div class="col-sm-6">
+                        <h3>Was sind die Highlights?</h3>
+                        {{ render_field(form.go_high_1) }}
+                        {{ render_field(form.go_high_2) }}
+                        {{ render_field(form.go_high_3) }}
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            {{ form.check.label }}
-                            {{ form.check }}
-                        </div>
-                    </div>
+                </div>
 
-                    <select name=name method="GET" action="/">
-                        {% for name in names %}
-                        <option value= "{{name}}" SELECTED>{{ name }}</option>
-                         {% endfor %}
-                    </select>            
-            </div>
-            <div class="col-sm-12" align="center">
                 <input type="submit" class="btn btn-primary" value="Eintragen">
                 </form>
-            </div>
-               
+
+            </div>               
         </div>  
         {% endblock %}    
     </body>
