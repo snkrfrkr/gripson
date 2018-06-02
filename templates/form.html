@@ -1,5 +1,6 @@
 {% from "_GripsEntryHelper.html" import render_field %}
 {% extends "bootstrap/base.html" %}
+
 <html>
     <head style="background-color: lightblue;">
         <title>GRIPS.on</title>
@@ -19,7 +20,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Überschrift</h3>
+                        <h3><strong>Überschrift</strong></h3>
                         {{ render_field(form.go_improvement) }}
                         <h3>Abteilung</h3>
                         {{ render_field(form.go_dept_1) }}
@@ -47,9 +48,12 @@
                         {{ render_field(form.go_high_2) }}
                         {{ render_field(form.go_high_3) }}
                     </div>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <input type="submit" class="btn btn-primary" value="Eintragen">
+                    </div>      
                 </div>
-
-                <input type="submit" class="btn btn-primary" value="Eintragen">
+                </div>               
                 </form>
 
             </div>               

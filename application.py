@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, FileField, BooleanField, TextAreaField 
+from wtforms import StringField, FileField, BooleanField, TextAreaField, TextField, SelectField
 from wtforms.validators import DataRequired, InputRequired, Length, Email
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
@@ -52,9 +52,17 @@ class gripson_t(db.Model):
         self.go_high_2 = go_high_2
         self.go_high_3 = go_high_3
 
+class gripson_depts(db.Model):
+    id = db.Column('id', db.Integer, primary_key = True)
+    dep_depts = db.Column(db.String(128))
+
+    def __init__ (self, dep_depts):
+        self.dep_depts = dep_depts
+
+
 class GripsInput(FlaskForm):
-    go_improvement = StringField('Verbesserung', validators=[InputRequired(message="Pflichtfeld")])
-    go_dept_1 = StringField('Abteilung*', validators=[InputRequired(message="Pflichtfeld")])
+    go_improvement = StringField('Verbesserung*', validators=[InputRequired(message="Pflichtfeld")])
+    go_dept_1 = TextField('Abteilung*', validators=[InputRequired(message="Pflichtfeld")])
     go_dept_2 = StringField('Abteilung')
     go_dept_3 = StringField('Abteilung')
     go_dept_4 = StringField('Abteilung')
@@ -71,6 +79,9 @@ class GripsInput(FlaskForm):
 db_in = gripson_t.query.all()
 db_len = len(db_in)
 print(str(db_len) + " Einträge in der Datenbank")
+
+dep = gripson_depts.query.all()
+print(str(dep))
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
@@ -109,7 +120,7 @@ def form():
         db.session.add(db_write)
         db.session.commit()
         return render_template("ok.html" )
-    return render_template("form.html", form=form)
+    return render_template("form.html", form=form, dept=dep)
 
 if __name__ == '__main__':
     app.run(debug=True)
