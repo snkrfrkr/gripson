@@ -7,32 +7,44 @@
     </head>
     <body>
         {% block content %}
-        <h1>GRIPS!on</h1>
+        <div class="row">
+            <div class="col-sm-12 well well-sm">
+                <h1 style="color: cornflowerblue">GRIPS!on</h1>
+            </div>
+        </div>        
         <div class="row">
             <div class="col-sm-12">
                 <form method="POST" enctype="multipart/form-data" action="{{ url_for('form') }}">
 
                 {{ form.csrf_token }}
                 <div class="row">
-                    <div class="col-sm-1" align="center">
+                    <div class="col-sm-12 bg-primary">
                         <h1>Verbesserung</h1>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h3><strong>Überschrift</strong></h3>
-                        {{ render_field(form.go_improvement) }}
+                    <div class="col-sm-6 panel panel-info" style="height: 360px;">
+                        <div class="panel-heading" style="height: 50px;">
+                            <h4><strong>Überschrift</strong></h4>
+                        </div>
+                        <div class="panel-body">
+                            {{ render_field(form.go_improvement) }}
+                        </div>
                         <h3>Abteilung</h3>
                         {{ render_field(form.go_dept_1) }}
                         {{ render_field(form.go_dept_2) }}
                         {{ render_field(form.go_dept_3) }}
                         {{ render_field(form.go_dept_4) }}
                     </div>
-                    <div class="col-sm-6">
-                        <h3>Warum war die Verbesserung notwendig?</h3>
-                        {{ render_field(form.go_why_1) }}
-                        {{ render_field(form.go_why_2) }}
-                        {{ render_field(form.go_why_3) }}
+                    <div class="col-sm-6 panel panel-info" style="height: 360px;">
+                        <div class="panel-heading" style="height: 50px;">
+                            <h4>Warum war die Verbesserung notwendig?</h4>
+                        </div>
+                        <div class="panel-body">
+                            {{ render_field(form.go_why_1) }}
+                            {{ render_field(form.go_why_2) }}
+                            {{ render_field(form.go_why_3) }}
+                        </div>
                     </div>
                 </div>
                 <div class="row">

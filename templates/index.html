@@ -109,11 +109,11 @@
         setTimeout(showSlides, 1500); // Change image every 2 seconds 
     }
 
-    var secCalc = 1000;
-    var timeout = setTimeout("location.reload(true);",60 * secCalc); // in Sekunden
+    var secConv = 1000;
+    var timeout = setTimeout("location.reload(true);",3600 * secConv); // in Sekunden
     function resetTimeout() {
         clearTimeout(timeout);
-        timeout = setTimeout("location.reload(true);",60 * secCalc); // in Sekunden
+        timeout = setTimeout("location.reload(true);",3600 * secConv); // in Sekunden
     }
 
    </script>
